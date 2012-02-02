@@ -1,0 +1,60 @@
+<!doctype html />
+<html>
+  <head>
+    <title>Demo</title>
+  </head>
+  <style type="text/css">
+    #chunk {
+      width: 100px;
+      height: 100px;
+      margin-left: 10px;
+      background: #EEEEEE;
+    }
+  </style>
+  <script type="text/javascript">
+function getRealStyle(id, styleName) {
+  var element = document.getElementById(id);
+  var realStyle = null;
+
+  if (element.currentStyle)
+    realStyle = element.currentStyle[styleName];
+  else if (window.getComputedStyle)
+    realStyle = window.getComputedStyle(element, null)[styleName];
+  return realStyle;
+}
+
+function $(tag) {
+  if (tag.indexOf("#") == 0) {
+    return document.getElementById(tag.substr(1));
+  } else if (tag.indexOf(".") == 0) {
+    return document.getElementsByClassName(tag.substr(1));
+  } else {
+    console.error('tag is not valid!');
+  }
+  return;
+}
+
+var flag = false;
+
+function s(evt) {
+  var left = getRealStyle("chunk", "marginLeft");
+  var intervalId;
+  var i = 0;
+
+  intervalId = setInterval(function() {
+      left = parseFloat(left) + i;
+      $("#chunk").style.marginLeft = left + "px";
+      if (i > 10 || i < -10) {
+      flag = (flag == false ? true : false);
+      clearInterval(intervalId);
+      }
+      if (flag) i -= 0.1;
+      else i += 0.1;
+      }, 13);
+}
+</script>
+<body>
+  <div id="chunk">&nbsp;&nbsp;fuck</div>
+  <button onclick="s();">Ani</button>
+</body>
+                                                                                                                                                                                                                                  </html>
