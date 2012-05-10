@@ -1,4 +1,5 @@
 /**
+ * 一个简单的例子，route用正则进行匹配
  * @author Shouding Xiang
  */
 var app = require(process.cwd() + "/jaazlog.js").jaazlog;
