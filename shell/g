@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+filter=$1
+search=$2
+
+usage () {
+    echo "Usage: g <filter> <search>
+Whether the specified string in a specified file"
+}
+
+if [ "$filter" = "" -o "$search" = "" ]; then
+    usage
+    exit 1
+fi
+
+find . -name "$filter" | xargs grep -n --color "$search"
