@@ -1,0 +1,36 @@
+#!/usr/bin/env sh
+
+#from encoding
+from=$1
+#to encoding
+to=$2
+
+dir=$3
+
+usage () {
+    echo 'Usage: riconv <from encoding> <to encoding> dir'
+}
+
+if [ "$from" = "" -o "$to" = "" -o "$dir" = "" ]; then
+    usage;
+    exit 1;
+fi
+
+dir=`readlink -f $dir`
+
+for o_f in `find "$dir" -type f \( -iname "*" ! -iname "\.*" \) | grep -v '.svn'`; do
+    #create tmp dir
+
+
+    if [ ! -d "/tmp/iconv" ]; then
+        mkdir -p /tmp/iconv
+    fi
+
+    tmp_f=/tmp/iconv/`basename $o_f`.`md5sum $o_f`
+
+    iconv -f "$from" -t "$to" $f -o $tmp_f
+
+    mv -u $tmp_f `$f`
+
+    echo $o_f "[$from to $to]"
+done
